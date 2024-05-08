@@ -1,3 +1,5 @@
+CREATE DATABASE nodepg; 
+
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
 	code INTEGER NOT NULL CHECK (code >= 1000 AND code <= 9999),
