@@ -48,7 +48,7 @@ router.put('/products/:id', async (req, res) => {
     const {id} =  req.params
     const data = req.body
 
-    const {rows} = await pool.query('UPDATE products SET code = $1, name = $2, updated_at = $3 WHERE id = $4 RETURNING *', [data.code, data.name, data.updated_at, id] )
+    const {rows} = await pool.query('UPDATE products SET code = $1, name = $2 WHERE id = $3 RETURNING *', [data.code, data.name, id] )
 
     return res.json(rows[0])
 })
