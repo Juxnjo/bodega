@@ -8,7 +8,7 @@ export const readWarehouses = async (req, res) => {
 export const readWarehouse = async (req, res) => {
   const { code } = req.params;
   const { rows } = await pool.query(
-    "SELECT * FROM warehouses WHERE code = $1",
+    "SELECT * FROM warehouses WHERE LOWER(code) = LOWER($1)",
     [code]
   );
   res.json(rows)
