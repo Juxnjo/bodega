@@ -4,6 +4,6 @@ import { readWarehouse, readWarehouses } from "../controllers/warehouses.control
 const router = Router()
 
 router.get('/warehouses', readWarehouses)
-router.get('/warehouses/:id', readWarehouse)
+router.get('/warehouses/:code', readWarehouse)
 
 export default router
