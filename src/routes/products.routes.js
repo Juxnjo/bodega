@@ -11,7 +11,7 @@ const router = Router()
 
 router.get('/products', readProducts)
 
-router.get('/products/:id', readProduct)
+router.get('/products/:code', readProduct)
 
 router.post('/products', createProducts)
 

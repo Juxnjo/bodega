@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { readWarehouse, readWarehouses } from "../controllers/warehouses.controllers.js";
+import {
+  createWarehouses,
+  readWarehouse,
+  readWarehouses,
+} from "../controllers/warehouses.controllers.js";
 
-const router = Router()
+const router = Router();
 
-router.get('/warehouses', readWarehouses)
-router.get('/warehouses/:code', readWarehouse)
+router.get("/warehouses", readWarehouses);
+router.get("/warehouses/:code", readWarehouse);
+router.post("/warehouses", createWarehouses);
 
-export default router
+export default router;

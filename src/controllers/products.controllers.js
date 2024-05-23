@@ -6,16 +6,20 @@ export const readProducts = async (req, res) => {
 };
 
 export const readProduct = async (req, res) => {
-  const { id } = req.params;
-  const { rows } = await pool.query("SELECT * FROM products WHERE id = $1", [
-    id,
-  ]);
-
-  if (rows.length === 0) {
-    return res.status(404).json({ message: "Product not found" });
+  try {
+    const { code } = req.params;
+    const { rows } = await pool.query(
+      "SELECT * FROM products WHERE code  = $1",
+      [code]
+    );
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json(rows[0]);
+  } catch (error) {
+    console.error("Error querying the database:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  res.json(rows[0]);
 };
 
 export const createProducts = async (req, res) => {

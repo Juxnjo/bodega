@@ -6,10 +6,34 @@ export const readWarehouses = async (req, res) => {
 };
 
 export const readWarehouse = async (req, res) => {
-  const { code } = req.params;
-  const { rows } = await pool.query(
-    "SELECT * FROM warehouses WHERE LOWER(code) = LOWER($1)",
-    [code]
-  );
-  res.json(rows)
+  try {
+    const { code } = req.params;
+    const { rows } = await pool.query(
+      "SELECT * FROM warehouses WHERE LOWER(code) = LOWER($1)",
+      [code]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Warehouse not found" });
+    }
+    res.json(rows);
+  } catch (error) {
+    console.error("Error querying the database:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
+
+export const createWarehouses = async (req, res) => {
+  try {
+    const data = req.body
+    const {rows} = await pool.query("INSERT INTO warehouses (code, name, address) VALUES ($1, $2, $3) RETURNING *", [data.code, data.name, data.address])
+
+    console.log(rows);
+    return res.json(rows[0])
+  } catch (error) {
+    if (error?.code === "23505"){
+      return res.status(409).json({message: "Code already exist"})
+    }
+    return res.status(500).json({message: "Internal server error"})
+  }
+}
