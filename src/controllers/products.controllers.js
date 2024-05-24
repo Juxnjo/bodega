@@ -1,3 +1,4 @@
+import { response } from "express";
 import { pool } from "../db.js";
 
 export const readProducts = async (req, res) => {
@@ -41,26 +42,36 @@ export const createProducts = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const { id } = req.params;
-  const { rowCount } = await pool.query(
-    "DELETE FROM products WHERE id = $1 RETURNING *",
-    [id]
-  );
+  try {
+    const { code } = req.params;
+    if (!code) {
+      return res.status(400).json({ message: "Product code is required" });
+    }
+    const { rows, rowCount } = await pool.query(
+      "DELETE FROM products WHERE code = $1 RETURNING *",
+      [code]
+    );
 
-  if (rowCount === 0) {
-    return res.status(404).json({ message: "Product not found" });
+    if (rowCount === 0) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Product deleted", product: rows[0] });
+  } catch (error) {
+    console.log("Error deleting product:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
-
-  return res.sendStatus(204);
 };
 
 export const updateProduct = async (req, res) => {
-  const { id } = req.params;
+  const { code } = req.params;
   const data = req.body;
 
   const { rows } = await pool.query(
-    "UPDATE products SET code = $1, name = $2 WHERE id = $3 RETURNING *",
-    [data.code, data.name, id]
+    "UPDATE products SET code = $1, name = $2 WHERE code = $3 RETURNING *",
+    [data.code, data.name, code]
   );
 
   return res.json(rows[0]);
