@@ -17,16 +17,6 @@ CREATE TABLE warehouses (
     address TEXT
 );
 
-ALTER TABLE warehouses
-ADD CONSTRAINT check_no_spaces_in_code CHECK (code !~ '\s')
-
-ALTER TABLE warehouses DROP CONSTRAINT IF EXISTS warehouses_code_key;
-
-CREATE UNIQUE INDEX unique_code_lower ON warehouses (LOWER(code));
-
-ALTER TABLE warehouses
-ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
-
 CREATE TABLE inventory (
     id SERIAL PRIMARY KEY,
     product_code INT REFERENCES products(code),
@@ -35,16 +25,23 @@ CREATE TABLE inventory (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
 
+ALTER TABLE warehouses
+ADD CONSTRAINT check_no_spaces_in_code CHECK (code !~ '\s')
+
+CREATE UNIQUE INDEX unique_code_lower ON warehouses (LOWER(code));
+
+ALTER TABLE warehouses
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
 ALTER TABLE inventory
 ADD CONSTRAINT FK_product
 FOREIGN KEY (product_code)
-REFERENCES products(code)
+REFERENCES products(code);
 
 ALTER TABLE inventory
 ADD CONSTRAINT FK_warehouse
 FOREIGN KEY (warehouse_code)
-REFERENCES warehouses(code)
-
+REFERENCES warehouses(code);
 
 
 
