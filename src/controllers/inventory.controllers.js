@@ -28,3 +28,40 @@ export const readInventory = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const readInventoryByProduct = async (req, res) => {
+  try {
+    const { product_code } = req.params;
+    const { rows } = await pool.query(`
+    SELECT
+      inventory.product_code,
+      products.name AS product_name,
+      warehouses.name AS warehouse_name,
+      inventory.warehouse_code,
+      SUM(inventory.qty) AS total_qty,
+      MAX(inventory.updated_at) AS last_updated
+    FROM
+      inventory
+      JOIN products ON inventory.product_code = products.code
+      JOIN warehouses ON inventory.warehouse_code = warehouses.code
+    WHERE
+      inventory.product_code = $1
+    GROUP BY
+      inventory.product_code,
+      inventory.warehouse_code,
+      products.name,
+      warehouses.name
+    ORDER BY
+      warehouses.name;
+  `, [product_code]
+    );
+    if (rows.length === 0) {
+      res.status(404).json({ message: "Product not found in inventory" });
+    } else {
+      res.json(rows);
+    }
+  } catch (error) {
+    console.error("Error querying the database:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
