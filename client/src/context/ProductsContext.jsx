@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import { createProductsRequest } from "../api/products";
-
+import { getProductsRequest, createProductsRequest } from '../api/products'
 
 const ProductContext = createContext()
 
@@ -16,13 +15,22 @@ export const useProducts = () => {
 export function ProductProvider ({ children }) {
   const [products, setProducts] = useState([])
 
-  const createProduct = async (product) => {
+  const createProduct = async product => {
     const res = await createProductsRequest(product)
     console.log(res)
   }
 
+  const getProducts = async () => {
+    try {
+      const res = await getProductsRequest()
+      setProducts(res.data)
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
   return (
-    <ProductContext.Provider value={{ products, createProduct }}>
+    <ProductContext.Provider value={{ products, createProduct, getProducts }}>
       {children}
     </ProductContext.Provider>
   )

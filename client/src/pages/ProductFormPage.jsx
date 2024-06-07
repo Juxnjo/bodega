@@ -1,14 +1,22 @@
 import { useForm } from 'react-hook-form'
 import { useProducts } from '../context/ProductsContext'
+import { useNavigate } from "react-router-dom";
+
 
 function ProductFormPage () {
   const { register, handleSubmit } = useForm()
   const {createProduct} = useProducts()
+  const navigate = useNavigate()
   
 
-  const onSubmit = handleSubmit(data => {
-    createProduct(data)
-  })
+  const onSubmit = handleSubmit(async data => {
+    try {
+      await createProduct(data);
+      navigate('/products'); 
+    } catch (error) {
+      console.error('Failed to create product', error);
+    }
+  });
 
   return (
     <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
