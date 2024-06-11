@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
   const location = useLocation();
@@ -17,7 +18,7 @@ function NavBar() {
         )}
         {location.pathname === "/products" && (
           <li>
-            <Link to="/products/new" className="bg-green-500 px-4 py-1 rounded-sm">Add New Product</Link>
+            <Link to="/products/new" className="bg-green-500 px-4 py-2 rounded-sm textw">Add New Product <FontAwesomeIcon icon={faPlus} /></Link>
           </li>
         )}
         <li>

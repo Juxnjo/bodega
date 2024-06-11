@@ -12,7 +12,7 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <div className="bg-zinc-300 my-3 flex justify-end items-center px-10 rounded-sm">
+    <div className="w-3/4 bg-zinc-300 my-3 flex justify-end items-center px-5 rounded-sm">
       <div className="relative w-full">
         <input
           type="text"
