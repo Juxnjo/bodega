@@ -1,16 +1,36 @@
-import { useForm } from "react-hook-form";
+import { useForm, } from "react-hook-form";
 import { useProducts } from "../context/ProductsContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 function ProductFormPage() {
-  const { register, handleSubmit } = useForm();
-  const { createProduct } = useProducts();
+  const { register, handleSubmit, setValue } = useForm();
+  const { createProduct, getProduct, updateProduct } = useProducts();
   const navigate = useNavigate();
+  const params = useParams()
+
+  useEffect(() => {
+    async function loadProduct(){
+      if (params.code){
+        const product = await getProduct(params.code)
+        console.log(product);
+        setValue('code', product.code)
+        setValue('name', product.name)
+      }
+    }
+    loadProduct()
+  }, [])
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      await createProduct(data);
-      navigate("/products");
+      if(params.code){
+        updateProduct(params.code, data)
+        alert('Update OK!')
+      } else {
+        createProduct(data)
+        alert('Create OK!')
+      }
+      navigate('/products')
     } catch (error) {
       console.error("Failed to create product", error);
     }
@@ -24,14 +44,14 @@ function ProductFormPage() {
             type="number"
             placeholder="Code"
             {...register("code")}
-            className="w-full bg-zinc-100 text-white px-4 py-2 rounded-md my-2"
+            className="w-full bg-zinc-100 text-black px-4 py-2 rounded-md my-2 "
             autoFocus
           />
           <textarea
             rows="3"
             placeholder="Name"
             {...register("name")}
-            className="w-full bg-zinc-100 text-white px-4 py-2 rounded-md my-2"
+            className="w-full bg-zinc-100 text-black px-4 py-2 rounded-md my-2"
           ></textarea>
           <button>Save</button>
         </form>

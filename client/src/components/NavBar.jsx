@@ -1,8 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { useProducts } from "../context/ProductsContext";
+
 
 function NavBar() {
-  const { createProducts } = useProducts();
   const location = useLocation();
 
   return (

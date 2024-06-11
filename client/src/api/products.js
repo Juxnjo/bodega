@@ -6,6 +6,6 @@ export const getProductRequest = (code) => axios.get(`/products/${code}`)
 
 export const createProductsRequest = (product) => axios.post('/products', product)
 
-export const updateProductsRequest = (product) => axios.put(`/products/${product.code}`, product)
+export const updateProductsRequest = (code, product) => axios.put(`/products/${code}`, product)
 
 export const deleteProductRequest = (code) => axios.delete(`/products/${code}`)
