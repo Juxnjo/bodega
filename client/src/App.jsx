@@ -1,13 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import ProductsPage from "./pages/ProductsPage";
 import ProductFormPage from "./pages/ProductFormPage";
 import WarehousesPage from "./pages/WarehousesPage";
-
 import InventoryPage from "./pages/InventoryPage";
-
 import { ProductProvider } from "./context/ProductsContext";
-
 import "./App.css";
 import NavBar from "./components/NavBar";
 

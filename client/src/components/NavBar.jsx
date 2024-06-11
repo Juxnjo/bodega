@@ -17,7 +17,7 @@ function NavBar() {
         )}
         {location.pathname === "/products" && (
           <li>
-            <Link to="/products/new" className="bg-green-500 px-4 py-1 rounded-sm">Add New Product</Link>
+            <Link to="/products/new" className="bg-green-500 px-4 py-1 rounded-md">Add New Product</Link>
           </li>
         )}
         <li>

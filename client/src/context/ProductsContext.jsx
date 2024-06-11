@@ -24,6 +24,7 @@ export function ProductProvider({ children }) {
   const createProduct = async (product) => {
     const res = await createProductsRequest(product);
     console.log(res);
+    
   };
 
   const getProducts = async () => {
@@ -60,6 +61,7 @@ export function ProductProvider({ children }) {
       const res = await updateProductsRequest(code, product);
       if (res.status === 200)
         setProducts(products.filter((product) => product.code !== code));
+      
     } catch (error) {
       alert(`Product in inventory: ${error.message}`);
     }
