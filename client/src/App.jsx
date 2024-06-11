@@ -7,11 +7,13 @@ import { ProductProvider } from "./context/ProductsContext";
 import "./App.css";
 import NavBar from "./components/NavBar";
 
+
 function App() {
   return (
     <ProductProvider>
       <BrowserRouter>
         <NavBar />
+       
         <Routes>
           <Route
             path="/"

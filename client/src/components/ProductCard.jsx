@@ -7,12 +7,12 @@ function ProductCard({ product }) {
   const { deleteProduct } = useProducts();
 
   return (
-    <div className="bg-zinc-300 max-w-md w-full p-10 rounded-md">
+    <div className="bg-zinc-300 max-w-md w-full p-10 rounded-sm">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold">Code: {product.code}</h1>
         <div className="flex gap-x-2 itemcen">
           <button
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-sm"
             onClick={() => {
               deleteProduct(product.code);
             }}
@@ -20,7 +20,7 @@ function ProductCard({ product }) {
             <FontAwesomeIcon icon={faTrashCan} />
           </button>
           <Link
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-sm"
             to={`/products/${product.code}`}
           >
             <FontAwesomeIcon icon={faPenToSquare} />

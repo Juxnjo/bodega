@@ -43,7 +43,7 @@ function ProductFormPage() {
 
   return (
     <div className="flex items-center justify-center py-10">
-      <div className="bg-zinc-300 max-w-md w-full p-10 rounded-md">
+      <div className="bg-zinc-300 max-w-md w-full p-10 rounded-sm">
         <h1 className="text-2xl font-bold mb-4">
           {params.code ? "Update Product" : "Create Product"}
         </h1>
@@ -59,7 +59,7 @@ function ProductFormPage() {
                 message: "Code must be exactly 4 digits",
               },
             })}
-            className="w-full bg-zinc-100 text-black px-4 py-2 rounded-md my-2"
+            className="w-full bg-zinc-100 text-black px-4 py-2 rounded-sm my-2"
             autoFocus
           />
           {errors.code && <p className="text-red-500">{errors.code.message}</p>}
@@ -68,10 +68,10 @@ function ProductFormPage() {
             rows="3"
             placeholder="Name"
             {...register("name", { required: "Name is required" })}
-            className="w-full bg-zinc-100 text-black px-4 py-2 rounded-md my-2"
+            className="w-full bg-zinc-100 text-black px-4 py-2 rounded-sm my-2"
           />
           {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-          <button className="w-full bg-green-500 px-3 py-2 rounded-md">
+          <button className="w-full bg-green-500 px-3 py-2 rounded-sm">
             Save
           </button>
         </form>
