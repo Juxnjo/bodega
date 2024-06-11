@@ -12,7 +12,7 @@ function ProductCard({ product }) {
         <h1 className="text-2xl font-bold">Code: {product.code}</h1>
         <div className="flex gap-x-1 itemcen">
           <button
-            className=" text-red-500 text-black px-2 py-1 rounded-full"
+            className=" text-red-500 px-2 py-1 rounded-full"
             onClick={() => {
               deleteProduct(product.code);
             }}
