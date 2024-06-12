@@ -47,6 +47,7 @@ function ProductsPage() {
         {filteredProducts.map((product) => (
           <ProductCard product={product} key={product.code} />
         ))}
+        
       </div>
     </div>
   );

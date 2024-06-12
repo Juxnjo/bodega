@@ -10,7 +10,7 @@ function ProductCard({ product }) {
     <div className="bg-zinc-300 max-w-md w-full p-10 rounded-sm">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold">Code: {product.code}</h1>
-        <div className="flex gap-x-1 itemcen">
+        <div className="flex gap-x-1 items-center">
           <button
             className=" text-red-500 px-2 py-1 rounded-full"
             onClick={() => {
